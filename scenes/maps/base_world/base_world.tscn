@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://deis0n2u0si24"]
+
+[ext_resource type="Script" path="res://scenes/maps/base_world/base_world.gd" id="1_ag44k"]
+[ext_resource type="PackedScene" uid="uid://d2mwnq6qnllps" path="res://scenes/terrain/areas/base_area/base_area.tscn" id="2_dnm0c"]
+[ext_resource type="PackedScene" uid="uid://cflqdnl6156j8" path="res://scenes/player/playersrepsawnlocation/PlayerRespawnLocation.tscn" id="4_hie7q"]
+[ext_resource type="PackedScene" uid="uid://cj48j2lhcde1a" path="res://scenes/terrain/portal/Portal.tscn" id="4_hjojy"]
+
+[node name="BaseWorld" type="Node2D"]
+script = ExtResource("1_ag44k")
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="Entities"]
+
+[node name="NPCs" type="Node2D" parent="Entities"]
+
+[node name="Map" type="Node2D" parent="Entities"]
+
+[node name="Areas" type="Node2D" parent="Entities/Map"]
+
+[node name="BaseArea" parent="Entities/Map/Areas" instance=ExtResource("2_dnm0c")]
+metadata/_edit_lock_ = true
+
+[node name="PlayerRespawnLocations" type="Node2D" parent="."]
+
+[node name="PlayerRespawnLocation" parent="PlayerRespawnLocations" instance=ExtResource("4_hie7q")]
+
+[node name="Portals" type="Node2D" parent="."]
+
+[node name="NorthPortal" parent="Portals" instance=ExtResource("4_hjojy")]
+position = Vector2(0, -4000)
+destination_server = "BaseWorld"
+destination_portal = "CentralToNorthPortal"
+destination_name = "Central North Portal"
+
+[node name="EastPortal" parent="Portals" instance=ExtResource("4_hjojy")]
+position = Vector2(4000, 0)
+destination_server = "BaseWorld"
+destination_portal = "CentralToEastPortal"
+destination_name = "Central East Portal"
+
+[node name="SouthPortal" parent="Portals" instance=ExtResource("4_hjojy")]
+position = Vector2(0, 4000)
+destination_server = "BaseWorld"
+destination_portal = "CentralToSouthPortal"
+destination_name = "Central South Portal"
+
+[node name="WestPortal" parent="Portals" instance=ExtResource("4_hjojy")]
+position = Vector2(-4000, 0)
+destination_server = "BaseWorld"
+destination_portal = "CentralToWestPortal"
+destination_name = "Central West Portal"
+
+[node name="CentralToNorthPortal" parent="Portals" instance=ExtResource("4_hjojy")]
+position = Vector2(0, -150)
+destination_server = "BaseWorld"
+destination_portal = "NorthPortal"
+destination_name = "North Portal"
+
+[node name="CentralToEastPortal" parent="Portals" instance=ExtResource("4_hjojy")]
+position = Vector2(150, 0)
+destination_server = "BaseWorld"
+destination_portal = "EastPortal"
+destination_name = "East Portal"
+
+[node name="CentralToSouthPortal" parent="Portals" instance=ExtResource("4_hjojy")]
+position = Vector2(0, 150)
+destination_server = "BaseWorld"
+destination_portal = "SouthPortal"
+destination_name = "South Portal"
+
+[node name="CentralToWestPortal" parent="Portals" instance=ExtResource("4_hjojy")]
+position = Vector2(-150, 0)
+destination_server = "BaseWorld"
+destination_portal = "WestPortal"
+destination_name = "West Portal"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
