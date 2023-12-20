@@ -129,6 +129,7 @@ func register_maps():
 	J.register_map_scene("BaseCamp", "res://scenes/maps/basecamp/BaseCamp.tscn")
 	J.register_map_scene("WakeningForest", "res://scenes/maps/wakeningforest/WakeningForest.tscn")
 	J.register_map_scene("ForestDungeon", "res://scenes/maps/forestdungeon/ForestDungeon.tscn")
+	J.register_map_scene("BaseWorld", "res://scenes/maps/base_world/base_world.tscn")
 
 
 func register_character_classes():
