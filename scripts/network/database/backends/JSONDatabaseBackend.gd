@@ -2,10 +2,11 @@ extends Node
 
 class_name JSONDatabaseBackend
 
+var backen_initialized = false
 
 # Upercase function name to match csharp style
-func Init() -> bool:
-	return create_file_if_not_exists(Global.env_json_backend_file, {})
+func _init() -> void:
+	backen_initialized = create_file_if_not_exists(Global.env_json_backend_file, {})
 
 
 func create_file_if_not_exists(path: String, json_data: Dictionary) -> bool:
@@ -19,6 +20,7 @@ func create_file_if_not_exists(path: String, json_data: Dictionary) -> bool:
 func write_json_to_file(path: String, json_data: Dictionary) -> bool:
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
+		# Error for example if write permission is missing
 		GodotLogger.error("Could not open file=[%s] to write" % path)
 		return false
 
