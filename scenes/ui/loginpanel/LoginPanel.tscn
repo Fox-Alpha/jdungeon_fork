@@ -240,9 +240,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 placeholder_text = "Enter Your Password"
 alignment = 1
-secret = true
 caret_blink = true
 caret_blink_interval = 0.45
+secret = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="Panel/LoginContainer"]
 layout_mode = 2
@@ -320,9 +320,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 placeholder_text = "Enter Your Password"
 alignment = 1
-secret = true
 caret_blink = true
 caret_blink_interval = 0.45
+secret = true
 
 [node name="PasswordConfirmText" type="LineEdit" parent="Panel/CreateAccountContainer/MarginContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(350, 0)
@@ -331,9 +331,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 placeholder_text = "Re-Enter Your Password"
 alignment = 1
-secret = true
 caret_blink = true
 caret_blink_interval = 0.45
+secret = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="Panel/CreateAccountContainer"]
 layout_mode = 2
