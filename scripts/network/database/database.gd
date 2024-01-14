@@ -9,7 +9,8 @@ func init() -> bool:
 	match Global.env_database_backend:
 		"json":
 			GodotLogger.info("Loading json database backend")
-			backend = JSONDatabaseBackend.new()
+			# backend = JSONDatabaseBackend.new()
+			backend = BackendJson.new()
 			backend.name = "Backend"
 			add_child(backend)
 		"postgres":
@@ -20,7 +21,7 @@ func init() -> bool:
 			backend.name = "Backend"
 			add_child(backend)
 
-	if not backend or not backend.Init():
+	if not backend or not backend.backend_initialized:
 		GodotLogger.error("Failed to init database")
 		return false
 
