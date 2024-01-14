@@ -1,18 +1,21 @@
-extends Object
-class_name LocalSaveSystem
+class_name LocalSaveSystem extends Object
 
-const DEFAULT_PATH: String = "user://SaveFile.ini"
+
+static var SettingsPath: String = "user://SaveFile.ini" #if not Global.env_debug else DEBUG_SAVE_FILE_PATH
+const DEFAULT_SAVE_FILE_PATH: String = "user://SaveFile.ini"
+const DEBUG_SAVE_FILE_PATH: String = "res://SaveFile.ini"
 
 const Sections: Dictionary = {SETTINGS = "SETTINGS"}
 
 static var savedData := ConfigFile.new()
 
-
 static func file_exists() -> bool:
-	return FileAccess.file_exists(DEFAULT_PATH)
+	if Global.env_debug:
+		SettingsPath = DEBUG_SAVE_FILE_PATH
+	return FileAccess.file_exists(SettingsPath)
 
 
-static func save_file(path: String = DEFAULT_PATH):
+static func save_file(path: String = SettingsPath):
 	if not savedData is ConfigFile:
 		savedData = ConfigFile.new()
 	var errCode: int = savedData.save(path)
@@ -26,7 +29,7 @@ static func save_file(path: String = DEFAULT_PATH):
 	return errCode
 
 
-static func load_file(path: String = DEFAULT_PATH):
+static func load_file(path: String = SettingsPath):
 	var config := ConfigFile.new()
 	var errCode: int = config.load(path)
 	savedData = config
