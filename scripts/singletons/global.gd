@@ -2,6 +2,11 @@ extends Node
 
 signal debug_mode_toggled(newStats: bool)
 
+# TODO:
+# ENV_DEFAULT_DATA_FILE_PATH if not Global.env_debug  else ENV_DEBUG_DATA_FILE_PATH
+#const ENV_DEFAULT_DATA_FILE_PATH: String = "user://"
+#const ENV_DEBUG_DATA_FILE_PATH: String = "res://"
+
 var env_debug: bool = false
 var env_network_profiling: bool = false
 var env_audio_mute: bool = false
@@ -34,7 +39,7 @@ var env_server_crt: String = ""
 var env_server_key: String = ""
 
 var env_database_backend: String = ""
-
+var env_backend_config: Dictionary = {}
 var env_json_backend_file: String = ""
 
 var env_postgres_address: String = ""
@@ -185,7 +190,7 @@ func load_common_env_variables() -> bool:
 func load_database_env_variables() -> bool:
 	env_database_backend = env.get_value("DATABASE_BACKEND")
 	if env_database_backend == "":
-		GodotLogger.error("Could not load DATABASE_BACKEND env varaible")
+		GodotLogger.error("Could not load DATABASE_BACKEND env variable")
 		return false
 
 	GodotLogger.info("DATABASE_BACKEND=[%s]" % env_database_backend)
@@ -194,7 +199,7 @@ func load_database_env_variables() -> bool:
 		"json":
 			env_json_backend_file = env.get_value("JSON_BACKEND_FILE")
 			if env_json_backend_file == "":
-				GodotLogger.error("Could not load JSON_BACKEND_FILE env varaible")
+				GodotLogger.error("Could not load JSON_BACKEND_FILE env variable")
 				return false
 
 			GodotLogger.info("JSON_BACKEND_FILE=[%s]" % env_json_backend_file)
@@ -204,37 +209,51 @@ func load_database_env_variables() -> bool:
 
 			env_postgres_address = env.get_value("POSTGRES_ADDRESS")
 			if env_postgres_address == "":
-				GodotLogger.error("Could not load POSTGRES_ADDRESS env varaible")
+				GodotLogger.error("Could not load POSTGRES_ADDRESS env variable")
 				return false
 
 			var env_postgres_port_str = env.get_value("POSTGRES_PORT")
 			if env_postgres_port_str == "":
-				GodotLogger.error("Could not load POSTGRES_PORT env varaible")
+				GodotLogger.error("Could not load POSTGRES_PORT env variable")
 				return false
 
 			env_postgres_port = int(env_postgres_port_str)
 
 			env_postgres_user = env.get_value("POSTGRES_USER")
 			if env_postgres_user == "":
-				GodotLogger.error("Could not load POSTGRES_USER env varaible")
+				GodotLogger.error("Could not load POSTGRES_USER env variable")
 				return false
 
 			env_postgress_password = env.get_value("POSTGRES_PASSWORD")
 			if env_postgress_password == "":
-				GodotLogger.error("Could not load POSTGRES_PASSWORD env varaible")
+				GodotLogger.error("Could not load POSTGRES_PASSWORD env variable")
 				return false
 
 			env_postgress_db = env.get_value("POSTGRES_DB")
 			if env_postgress_db == "":
-				GodotLogger.error("Could not load POSTGRES_DB env varaible")
+				GodotLogger.error("Could not load POSTGRES_DB env variable")
 				return false
+
+		"sqlite":
+			# SQLITE_BACKEND_FILE
+			if env.get_value("SQLITE_BACKEND_FILE") == "":
+				GodotLogger.error("Could not load SQLITE_DB env variable")
+				return false
+			env_backend_config={
+				"SQLITE": {
+					"Path": "",
+					"DBFile": env.get_value("SQLITE_BACKEND_FILE"),
+					"verbosity": 2,
+					"default_extension": "jddb",
+				}
+			}
 	return true
 
 
 func load_gateway_env_variables() -> bool:
 	var env_client_port_str = env.get_value("GATEWAY_CLIENT_PORT")
 	if env_client_port_str == "":
-		GodotLogger.error("Could not load GATEWAY_CLIENT_PORT env varaible")
+		GodotLogger.error("Could not load GATEWAY_CLIENT_PORT env variable")
 		return false
 
 	env_gateway_client_port = int(env_client_port_str)
@@ -243,7 +262,7 @@ func load_gateway_env_variables() -> bool:
 
 	var env_client_max_peers_str = env.get_value("GATEWAY_CLIENT_MAX_PEERS")
 	if env_client_max_peers_str == "":
-		GodotLogger.error("Could not load GATEWAY_CLIENT_MAX_PEERS env varaible")
+		GodotLogger.error("Could not load GATEWAY_CLIENT_MAX_PEERS env variable")
 		return false
 
 	env_gateway_client_max_peers = int(env_client_max_peers_str)
