@@ -20,6 +20,12 @@ func init() -> bool:
 			)
 			backend.name = "Backend"
 			add_child(backend)
+		"sqlite":
+			GodotLogger.info("Loading sqlite database backend")
+			# backend = JSONDatabaseBackend.new()
+			backend = BackendSqlite.new()
+			backend.name = "Backend"
+			add_child(backend)
 
 	if not backend or not backend.backend_initialized:
 		GodotLogger.error("Failed to init database")
