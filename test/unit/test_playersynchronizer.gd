@@ -17,7 +17,7 @@ func test_server_sync_input():
 	assert_eq(double_player_synchronizer._input_buffer.size(), 0)
 
 	# Execute the function with valid values
-	double_player_synchronizer.server_sync_input(1, Vector2.LEFT, 0.1, Vector2.ONE)
+	double_player_synchronizer.server_sync_input(1, Vector2.LEFT, 0.1)
 
 	# The new values should be set
 	assert_eq(double_player_synchronizer._current_frame, 1)
