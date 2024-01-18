@@ -11,20 +11,20 @@ func init() -> bool:
 			GodotLogger.info("Loading json database backend")
 			# backend = JSONDatabaseBackend.new()
 			backend = BackendJson.new()
-			backend.name = "Backend"
+			backend.name = "BackendJson"
 			add_child(backend)
 		"postgres":
 			GodotLogger.info("Loading postgres database backend")
 			backend = (
 				load("res://scripts/network/database/backends/PostgresDatabaseBackend.cs").new()
 			)
-			backend.name = "Backend"
+			backend.name = "BackendPostgres"
 			add_child(backend)
 		"sqlite":
 			GodotLogger.info("Loading sqlite database backend")
 			# backend = JSONDatabaseBackend.new()
 			backend = BackendSqlite.new()
-			backend.name = "Backend"
+			backend.name = "BackendSqlite"
 			add_child(backend)
 
 	if not backend or not backend.backend_initialized:
